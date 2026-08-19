@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ส่งผลงาน Best Practices ภาษาอังกฤษ (ม.3) — สพป.อุดรธานี เขต 1</title>
+<style>
+  :root{--blue:#1a73e8;--blue2:#4285f4;--ink:#1f2933;--soft:#5b6470;--line:#dfe4ec;--bg:#eef2f8;--ok:#34a853;--err:#d93025;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Sarabun","Segoe UI",Tahoma,sans-serif;color:var(--ink);
+       background:var(--bg);line-height:1.65;}
+  .wrap{max-width:720px;margin:0 auto;padding:24px 16px 72px;}
+  header{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;border-radius:18px;
+         padding:28px 26px;box-shadow:0 8px 24px rgba(26,115,232,.25);}
+  header h1{margin:0 0 6px;font-size:22px;line-height:1.4;}
+  header p{margin:0;opacity:.95;font-size:14px;}
+  .deadline{display:inline-block;background:rgba(255,255,255,.2);padding:5px 13px;border-radius:999px;
+       font-size:13px;margin-top:14px;}
+  form{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 24px;margin-top:18px;
+       box-shadow:0 2px 10px rgba(20,40,80,.05);}
+  .field{margin-bottom:18px;}
+  label{display:block;font-weight:600;margin-bottom:6px;font-size:15px;}
+  label .req{color:var(--err);}
+  .hint{font-size:12.5px;color:var(--soft);font-weight:400;margin-top:3px;}
+  input[type=text],input[type=tel],input[type=email],select{width:100%;padding:11px 13px;border:1.5px solid var(--line);
+       border-radius:10px;font-size:15px;font-family:inherit;background:#fbfcfe;transition:border .15s;}
+  input:focus,select:focus{outline:none;border-color:var(--blue);background:#fff;}
+  .filebox{border:1.5px dashed #b7c4d8;border-radius:12px;padding:14px;background:#f7faff;}
+  .filebox input[type=file]{width:100%;font-size:14px;font-family:inherit;}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:520px){.row{grid-template-columns:1fr;}}
+  button{width:100%;background:var(--blue);color:#fff;border:none;padding:15px;border-radius:12px;
+       font-size:17px;font-weight:700;font-family:inherit;cursor:pointer;transition:.15s;margin-top:6px;}
+  button:hover{background:#1663cf;}
+  button:disabled{background:#9db8e0;cursor:not-allowed;}
+  .msg{margin-top:16px;padding:14px 16px;border-radius:12px;font-size:15px;display:none;}
+  .msg.ok{display:block;background:#e6f4ea;color:#137333;border:1px solid #b7e1cd;}
+  .msg.err{display:block;background:#fce8e6;color:#a50e0e;border:1px solid #f5c2bd;}
+  .msg.load{display:block;background:#fef7e0;color:#8a6d1a;border:1px solid #fddf8e;}
+  .done{display:none;background:#fff;border:1px solid var(--line);border-radius:18px;padding:40px 26px;
+       text-align:center;margin-top:18px;box-shadow:0 2px 10px rgba(20,40,80,.05);}
+  .done .check{font-size:56px;}
+  .done h2{color:var(--ok);margin:8px 0;}
+  .done button{max-width:260px;margin:18px auto 0;}
+  .foot{text-align:center;color:var(--soft);font-size:12.5px;margin-top:26px;}
+  .warnbar{background:#fff3cd;border:1px solid #ffe08a;color:#7a5b00;border-radius:12px;
+       padding:12px 16px;font-size:13.5px;margin-top:14px;display:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🏆 ส่งผลงาน Best Practices ภาษาอังกฤษ (ม.3)</h1>
+    <p>นวัตกรรมการจัดการเรียนรู้ภาษาอังกฤษเพื่อการสื่อสาร บูรณาการใช้ปัญญาประดิษฐ์<br>
+       โรงเรียนในสังกัด สำนักงานเขตพื้นที่การศึกษาประถมศึกษาอุดรธานี เขต 1</p>
+    <span class="deadline">⏰ กำหนดส่งภายในวันที่ 27 สิงหาคม 2569</span>
+  </header>
+
+  <div class="warnbar" id="cfgwarn">
+    ⚠️ ยังไม่ได้ตั้งค่า WEBAPP_URL — ผู้ดูแลระบบต้องนำ Web app URL จาก Google Apps Script มาวางในไฟล์ index.html ก่อนเปิดใช้งาน
+  </div>
+
+  <form id="form">
+    <div class="field">
+      <label>ชื่อผลงาน <span class="req">*</span></label>
+      <input type="text" name="chuePhonngan" required>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>ผู้เสนอผลงาน (ชื่อ-นามสกุล) <span class="req">*</span></label>
+        <input type="text" name="phuSanoe" required>
+      </div>
+      <div class="field">
+        <label>ตำแหน่ง <span class="req">*</span></label>
+        <input type="text" name="tamnaeng" required>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>โรงเรียน <span class="req">*</span></label>
+        <input type="text" name="rongrian" required>
+      </div>
+      <div class="field">
+        <label>สังกัด</label>
+        <input type="text" name="sangkat" value="สพป.อุดรธานี เขต 1">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>เบอร์โทรศัพท์ที่ติดต่อได้ <span class="req">*</span></label>
+        <input type="tel" name="tel" required>
+      </div>
+      <div class="field">
+        <label>อีเมล <span class="req">*</span></label>
+        <input type="email" name="email" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>แนบไฟล์รายงานฉบับ WORD (.doc/.docx) <span class="req">*</span></label>
+      <div class="filebox">
+        <input type="file" id="wordFile" accept=".doc,.docx" required>
+        <div class="hint">รายงานความยาวไม่เกิน 30 หน้า (ไม่นับปก คำนำ สารบัญ ภาคผนวก) · ขนาดไม่เกิน 25 MB</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>แนบไฟล์รายงานฉบับ PDF <span class="req">*</span></label>
+      <div class="filebox">
+        <input type="file" id="pdfFile" accept="application/pdf,.pdf" required>
+        <div class="hint">ไฟล์ PDF ของรายงานฉบับเดียวกัน · ขนาดไม่เกิน 25 MB</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>ลิงก์คลิปวิดีโอการสอน <span class="req">*</span></label>
+      <input type="url" name="videoLink" placeholder="เช่น https://youtu.be/... หรือลิงก์ Google Drive" required>
+      <div class="hint">คลิปวิดีโอการสอนตามแผนการจัดการเรียนรู้ (ตั้งค่าแชร์ให้ "ผู้ที่มีลิงก์ดูได้")</div>
+    </div>
+
+    <div class="field">
+      <label>ลิงก์สื่อ/ผลงานเพิ่มเติม (ถ้ามี)</label>
+      <input type="url" name="extraLink" placeholder="ลิงก์ infographic, สื่อ AI, หรือหลักฐานการเผยแพร่ (ไม่บังคับ)">
+    </div>
+
+    <div class="field" style="display:flex;gap:10px;align-items:flex-start;background:#f7faff;border:1px solid var(--line);border-radius:10px;padding:13px 15px;">
+      <input type="checkbox" id="confirm" style="margin-top:5px;width:18px;height:18px;flex-shrink:0;" required>
+      <label for="confirm" style="font-weight:400;margin:0;font-size:14px;">
+        ข้าพเจ้าขอรับรองว่ารายงานมีความยาว <b>ไม่เกิน 30 หน้า</b> (ไม่นับปก คำนำ สารบัญ ภาคผนวก)
+        และได้แนบ <b>แผนการจัดการเรียนรู้ที่ผู้บริหารสถานศึกษาลงนามรับรอง</b> ไว้ในภาคผนวกเรียบร้อยแล้ว
+      </label>
+    </div>
+
+    <button type="submit" id="submitBtn">📤 ส่งผลงาน</button>
+    <div class="msg" id="msg"></div>
+  </form>
+
+  <div class="done" id="done">
+    <div class="check">✅</div>
+    <h2>ส่งผลงานเรียบร้อยแล้ว!</h2>
+    <p>ระบบได้บันทึกผลงานและไฟล์ของท่านเข้าสู่ฐานข้อมูลเรียบร้อย<br>ขอบคุณที่ร่วมส่งผลงานค่ะ</p>
+    <button onclick="location.reload()">ส่งผลงานอีกรายการ</button>
+  </div>
+
+  <div class="foot">ระบบรับผลงานออนไลน์ · ฐานข้อมูล Google Sheet · สพป.อุดรธานี เขต 1</div>
+</div>
+
+<script>
+  /* ================== ★ ตั้งค่าตรงนี้ ==================
+     วาง "Web app URL" ที่ได้จากการ Deploy ใน Google Apps Script ลงในเครื่องหมายคำพูดด้านล่าง */
+  const WEBAPP_URL = "วาง_WEB_APP_URL_ที่นี่";
+  /* ==================================================== */
+
+  const MAX_BYTES = 25 * 1024 * 1024; // 25 MB ต่อไฟล์
+  const form = document.getElementById('form');
+  const msg = document.getElementById('msg');
+  const btn = document.getElementById('submitBtn');
+
+  if (!WEBAPP_URL || WEBAPP_URL.indexOf('http') !== 0) {
+    document.getElementById('cfgwarn').style.display = 'block';
+  }
+
+  function readAsBase64(file){
+    return new Promise((resolve, reject)=>{
+      const fr = new FileReader();
+      fr.onload = ()=>{ const s = fr.result; resolve(s.substring(s.indexOf(',')+1)); };
+      fr.onerror = reject;
+      fr.readAsDataURL(file);
+    });
+  }
+  function show(type, text){ msg.className = 'msg ' + type; msg.textContent = text; }
+
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    if (!WEBAPP_URL || WEBAPP_URL.indexOf('http') !== 0){
+      show('err','ระบบยังไม่พร้อมใช้งาน (ยังไม่ได้ตั้งค่า WEBAPP_URL)'); return;
+    }
+    const wf = document.getElementById('wordFile').files[0];
+    const pf = document.getElementById('pdfFile').files[0];
+    if (!wf || !pf){ show('err','กรุณาแนบไฟล์ทั้ง WORD และ PDF'); return; }
+    if (wf.size > MAX_BYTES || pf.size > MAX_BYTES){
+      show('err','ไฟล์มีขนาดเกิน 25 MB กรุณาลดขนาดไฟล์ก่อนส่ง'); return;
+    }
+
+    btn.disabled = true;
+    show('load','⏳ กำลังอัปโหลดไฟล์และบันทึกข้อมูล กรุณารอสักครู่ (อย่าปิดหน้านี้)...');
+
+    try{
+      const fd = new FormData(form);
+      const payload = {
+        chuePhonngan: fd.get('chuePhonngan'),
+        phuSanoe: fd.get('phuSanoe'),
+        tamnaeng: fd.get('tamnaeng'),
+        rongrian: fd.get('rongrian'),
+        sangkat: fd.get('sangkat'),
+        tel: fd.get('tel'),
+        email: fd.get('email'),
+        videoLink: fd.get('videoLink'),
+        extraLink: fd.get('extraLink'),
+        confirm: document.getElementById('confirm').checked,
+        wordName: wf.name, wordMime: wf.type || 'application/msword',
+        wordData: await readAsBase64(wf),
+        pdfName: pf.name, pdfMime: pf.type || 'application/pdf',
+        pdfData: await readAsBase64(pf)
+      };
+
+      const res = await fetch(WEBAPP_URL, {
+        method:'POST',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify(payload)
+      });
+
+      let ok = true, errText = '';
+      try{ const j = await res.json(); ok = j.ok; errText = j.error || ''; }catch(_){ ok = true; }
+
+      if (ok){
+        form.style.display = 'none';
+        document.getElementById('done').style.display = 'block';
+        window.scrollTo({top:0, behavior:'smooth'});
+      }else{
+        show('err','ไม่สำเร็จ: ' + (errText || 'กรุณาลองใหม่อีกครั้ง'));
+        btn.disabled = false;
+      }
+    }catch(err){
+      show('err','เกิดข้อผิดพลาดในการส่ง: ' + err.message + ' — กรุณาลองใหม่');
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
