@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คู่มือระบบส่งผลงาน Best Practices</title>
+<style>
+  :root{--blue:#1a73e8;--green:#34a853;--ink:#1f2933;--soft:#5b6470;--line:#e3e8ef;--bg:#f6f8fb;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Sarabun","Segoe UI",Tahoma,sans-serif;color:var(--ink);
+       background:var(--bg);line-height:1.7;font-size:16px;}
+  .wrap{max-width:860px;margin:0 auto;padding:32px 20px 80px;}
+  header{background:linear-gradient(135deg,#1a73e8,#4285f4);color:#fff;border-radius:18px;
+         padding:34px 30px;box-shadow:0 8px 24px rgba(26,115,232,.25);}
+  header h1{margin:0 0 8px;font-size:26px;}
+  header p{margin:0;opacity:.95;font-size:15px;}
+  .tag{display:inline-block;background:rgba(255,255,255,.2);padding:4px 12px;border-radius:999px;
+       font-size:13px;margin-top:14px;}
+  h2{font-size:20px;margin:38px 0 12px;padding-left:12px;border-left:5px solid var(--blue);}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:14px 0;
+        box-shadow:0 2px 8px rgba(20,40,80,.04);}
+  ol.steps{counter-reset:s;list-style:none;padding:0;margin:0;}
+  ol.steps li{position:relative;padding:14px 0 14px 52px;border-bottom:1px dashed var(--line);}
+  ol.steps li:last-child{border-bottom:none;}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:12px;
+       width:34px;height:34px;background:var(--blue);color:#fff;border-radius:50%;
+       display:flex;align-items:center;justify-content:center;font-weight:700;}
+  .k{background:#eef3ff;color:#1a4fb0;border-radius:6px;padding:1px 8px;font-weight:600;font-size:14px;}
+  .note{background:#fff8e1;border:1px solid #fce4a6;border-radius:12px;padding:14px 18px;font-size:15px;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .feat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;}
+  .feat b{color:var(--blue);}
+  table{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border-radius:12px;overflow:hidden;}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top;}
+  th{background:var(--blue);color:#fff;}
+  tr:nth-child(even) td{background:#f7faff;}
+  .tot td{background:#e8f0fe!important;font-weight:700;}
+  .codebox{position:relative;}
+  .copybtn{position:absolute;top:12px;right:12px;background:var(--green);color:#fff;border:none;
+       padding:8px 16px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;}
+  .copybtn:active{transform:scale(.97);}
+  pre{background:#0d1117;color:#e6edf3;padding:20px;border-radius:14px;overflow:auto;max-height:420px;
+      font-family:"SF Mono",Consolas,monospace;font-size:12.5px;line-height:1.55;}
+  .band{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+  .band span{padding:6px 12px;border-radius:8px;font-size:14px;font-weight:600;}
+  .b1{background:#b7e1cd;}.b2{background:#d9ead3;}.b3{background:#fff2cc;}.b4{background:#fce5cd;}
+  a{color:var(--blue);}
+  .foot{text-align:center;color:var(--soft);font-size:13px;margin-top:40px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🏆 ระบบส่งผลงาน Best Practices</h1>
+    <p>นวัตกรรมการจัดการเรียนรู้ภาษาอังกฤษเพื่อการสื่อสาร บูรณาการใช้ปัญญาประดิษฐ์ (ม.3)<br>
+       สำนักงานเขตพื้นที่การศึกษาประถมศึกษาอุดรธานี เขต 1</p>
+    <span class="tag">ฐานข้อมูล: Google Sheet · แนบไฟล์ผ่านระบบ · คิดคะแนนอัตโนมัติ</span>
+  </header>
+
+  <h2>ระบบนี้ทำอะไรให้บ้าง</h2>
+  <div class="grid">
+    <div class="feat"><b>📝 ฟอร์มรับผลงาน</b><br>ครูกรอกชื่อผลงาน/ผู้ส่ง/โรงเรียน และ<b>แนบไฟล์ WORD + PDF ผ่านระบบได้เลย</b> ไม่ต้องส่งอีเมล</div>
+    <div class="feat"><b>📊 ฐานข้อมูล Google Sheet</b><br>ข้อมูลและไฟล์ที่ครูส่ง ไหลเข้า Sheet อัตโนมัติ ดูรวมที่เดียว</div>
+    <div class="feat"><b>✅ ให้คะแนนอัตโนมัติ</b><br>กรรมการกรอกระดับ 1-3 ของ 8 องค์ประกอบ (90) + แผนการสอน (10) ระบบรวมเป็น 100 และตัดระดับคุณภาพให้เอง</div>
+    <div class="feat"><b>📈 สรุปผล</b><br>นับจำนวนผลงาน แยกระดับคุณภาพ หาคะแนนสูงสุด/ผู้ชนะเลิศ อัตโนมัติ</div>
+  </div>
+
+  <h2>วิธีติดตั้ง (ทำครั้งเดียว ~3 นาที)</h2>
+  <div class="card">
+    <ol class="steps">
+      <li>เข้าเว็บ <span class="k">script.google.com</span> แล้วล็อกอินด้วยบัญชี Google (แนะนำใช้บัญชีที่จะรับผลงาน เช่น <b>saowapa831@gmail.com</b>)</li>
+      <li>คลิก <span class="k">โครงการใหม่ / New project</span></li>
+      <li>ลบโค้ดเดิมในช่องออกให้หมด แล้ว <b>วางโค้ดทั้งหมด</b> จากกล่องด้านล่าง (กดปุ่ม "คัดลอกโค้ด")</li>
+      <li>กดบันทึก <span class="k">💾</span> จากนั้นด้านบนเลือกฟังก์ชัน <span class="k">สร้างระบบBest</span> แล้วกด <span class="k">▶ Run</span></li>
+      <li>ครั้งแรกจะขึ้นให้ <b>อนุญาตสิทธิ์ (Authorize)</b> → เลือกบัญชี → กด "ขั้นสูง / Advanced" → "ไปที่โครงการ (unsafe)" → อนุญาต</li>
+      <li>เสร็จแล้วเปิดเมนู <span class="k">มุมมอง → บันทึกการทำงาน (Execution log)</span> จะเห็น <b>ลิงก์ฟอร์ม</b> และ <b>ลิงก์ Google Sheet</b></li>
+    </ol>
+    <div class="note">💡 <b>ส่งลิงก์ฟอร์มให้ครู</b>เพื่อส่งผลงาน ส่วน<b>ลิงก์ Sheet เก็บไว้ให้กรรมการ</b>ใช้ตรวจให้คะแนน ระบบเชื่อมกันอัตโนมัติแล้ว</div>
+  </div>
+
+  <h2>เกณฑ์การให้คะแนน (รวม 100)</h2>
+  <table>
+    <tr><th>องค์ประกอบ</th><th>น้ำหนัก×ระดับ</th><th>เต็ม</th></tr>
+    <tr><td>1. ความเป็นมาและความสำคัญ</td><td>×3</td><td>9</td></tr>
+    <tr><td>2. วัตถุประสงค์และเป้าหมาย</td><td>×1</td><td>3</td></tr>
+    <tr><td>3.1 การออกแบบแผน (CLT+AI)</td><td>×2</td><td>6</td></tr>
+    <tr><td>3.2 กระบวนการจัดการเรียนรู้ (CLT+AI)</td><td>×4</td><td>12</td></tr>
+    <tr><td>3.3 ความสอดคล้องของสื่อ AI</td><td>×3</td><td>9</td></tr>
+    <tr><td>4.1 ผลที่เกิดขึ้นบรรลุตามกิจกรรม</td><td>×4</td><td>12</td></tr>
+    <tr><td>4.2 ประโยชน์ที่ได้รับ</td><td>×4</td><td>12</td></tr>
+    <tr><td>5. บทเรียนที่ได้รับ</td><td>×3</td><td>9</td></tr>
+    <tr><td>6. ปัจจัยความสำเร็จ</td><td>×2</td><td>6</td></tr>
+    <tr><td>7. การเผยแพร่/การยอมรับ/รางวัล</td><td>×2</td><td>6</td></tr>
+    <tr><td>8. ภาคผนวก</td><td>×2</td><td>6</td></tr>
+    <tr class="tot"><td>รวมองค์ประกอบ</td><td></td><td>90</td></tr>
+    <tr class="tot"><td>+ คะแนนแผนการจัดการเรียนรู้ (10 ข้อ ข้อละ 1)</td><td></td><td>10</td></tr>
+    <tr class="tot"><td>รวมทั้งสิ้น</td><td></td><td>100</td></tr>
+  </table>
+  <p style="margin:14px 0 6px;font-weight:600;">ระดับคุณภาพจากคะแนนรวม:</p>
+  <div class="band">
+    <span class="b1">ดีเยี่ยม 90.00↑</span>
+    <span class="b2">ดีมาก 80.00–89.99</span>
+    <span class="b3">ดี 70.00–79.99</span>
+    <span class="b4">เข้าร่วม 50.00–69.99</span>
+  </div>
+
+  <h2>วิธีให้คะแนน (กรรมการ)</h2>
+  <div class="card">
+    เปิด Sheet ไปที่แผ่น <span class="k">ให้คะแนน</span> — ชื่อผลงาน/ผู้ส่ง/โรงเรียน จะขึ้นให้เองจากที่ครูส่งมา
+    กรรมการเพียง<b>กรอกระดับ 1-3</b> ในแต่ละองค์ประกอบ (3 = มีครบ 3 รายการ, 2 = มี 2 รายการ, 1 = มี 1 รายการ)
+    และกรอก<b>คะแนนแผนการสอน 0-10</b> ระบบจะ<b>รวมคะแนนและตัดระดับคุณภาพให้อัตโนมัติ</b>
+    ส่วนแผ่น <span class="k">สรุปผล</span> จะอัปเดตจำนวนและผู้ชนะเลิศให้ทันที
+  </div>
+
+  <h2>โค้ดสำหรับติดตั้ง</h2>
+  <div class="card codebox">
+    <button class="copybtn" onclick="copyCode()">📋 คัดลอกโค้ด</button>
+    <pre id="code">/**************************************************************************************************
+ * ระบบส่งผลงาน Best Practices — สพป.อุดรธานี เขต 1
+ * นวัตกรรมการจัดการเรียนรู้ภาษาอังกฤษเพื่อการสื่อสาร บูรณาการใช้ปัญญาประดิษฐ์ (ม.3)
+ *
+ * สคริปต์นี้จะสร้างให้อัตโนมัติ เมื่อกดรัน 1 ครั้ง:
+ *   1) Google Form  ให้ครูส่งผลงาน + แนบไฟล์ WORD และ PDF ผ่านระบบได้เลย
+ *   2) Google Sheet เป็นฐานข้อมูล มี 4 แผ่นงาน:
+ *        - &quot;การส่งผลงาน&quot;  : ข้อมูลที่ครูส่งเข้ามา (เชื่อมกับฟอร์มอัตโนมัติ)
+ *        - &quot;ให้คะแนน&quot;     : หน้าให้กรรมการกรอกคะแนน 8 องค์ประกอบ (90) + แผนการสอน (10) รวมอัตโนมัติ 100
+ *        - &quot;สรุปผล&quot;       : สรุปจำนวนผลงาน/ระดับคุณภาพ/ผู้ชนะเลิศ อัตโนมัติ
+ *        - &quot;เกณฑ์การให้คะแนน&quot; : ตารางเกณฑ์อ้างอิงสำหรับกรรมการ
+ *
+ * วิธีใช้:  เปิด https://script.google.com  →  โปรเจกต์ใหม่  →  วางโค้ดนี้ทั้งหมด
+ *          →  เลือกฟังก์ชัน &quot;สร้างระบบBest&quot;  →  กด Run (▶)  →  อนุญาตสิทธิ์
+ *          →  ดูลิงก์ Form และ Sheet ได้ที่หน้าต่าง Execution log
+ **************************************************************************************************/
+
+// ====== ตั้งค่าหลัก (แก้ไขได้) ======
+var ชื่องาน   = &#x27;ประกวดผลงาน Best Practices ภาษาอังกฤษเพื่อการสื่อสาร บูรณาการ AI (ม.3)&#x27;;
+var หน่วยงาน  = &#x27;สำนักงานเขตพื้นที่การศึกษาประถมศึกษาอุดรธานี เขต 1&#x27;;
+var สังกัดค่าเริ่มต้น = &#x27;สพป.อุดรธานี เขต 1&#x27;;
+var กำหนดส่ง  = &#x27;ภายในวันที่ 27 สิงหาคม 2569&#x27;;
+var เว็บเผยแพร่ = &#x27;https://web.udn1.go.th/&#x27;;
+
+// น้ำหนักคะแนนของ 11 ตัวชี้วัดย่อย (กรรมการกรอกระดับ 1-3 แล้วคูณน้ำหนัก, รวมสูงสุด 90)
+// ลำดับตรงกับหัวตาราง: [1, 2, 3.1, 3.2, 3.3, 4.1, 4.2, 5, 6, 7, 8]
+var น้ำหนัก = [3, 1, 2, 4, 3, 4, 4, 3, 2, 2, 2]; // รวม = 30  → ×ระดับสูงสุด 3 = 90
+
+function สร้างระบบBest() {
+  // ---------- 1) สร้าง Spreadsheet ฐานข้อมูล ----------
+  var ss = SpreadsheetApp.create(&#x27;ฐานข้อมูลผลงาน Best Practices — &#x27; + สังกัดค่าเริ่มต้น);
+
+  // ---------- 2) สร้าง Google Form ----------
+  var form = FormApp.create(&#x27;แบบส่งผลงาน Best Practices ภาษาอังกฤษ (ม.3) — &#x27; + สังกัดค่าเริ่มต้น);
+  form.setDescription(
+    &#x27;แบบเสนอผลงานรูปแบบ/วิธีปฏิบัติที่เป็นเลิศ (Best Practices)\n&#x27; +
+    &#x27;นวัตกรรมการจัดการเรียนรู้ภาษาอังกฤษเพื่อการสื่อสาร บูรณาการใช้ปัญญาประดิษฐ์\n&#x27; +
+    &#x27;ที่ส่งผลต่อทักษะการสื่อสารภาษาอังกฤษของนักเรียนชั้น ม.3\n&#x27; +
+    &#x27;โรงเรียนในสังกัด &#x27; + หน่วยงาน + &#x27;\n\n&#x27; +
+    &#x27;• เขียนรายงานตามแบบฟอร์ม ความยาวไม่เกิน 30 หน้า (ไม่นับปก คำนำ สารบัญ ภาคผนวก)\n&#x27; +
+    &#x27;• แนบไฟล์ทั้ง WORD และ PDF ผ่านแบบฟอร์มนี้\n&#x27; +
+    &#x27;• กำหนดส่ง &#x27; + กำหนดส่ง + &#x27;\n&#x27; +
+    &#x27;• เผยแพร่ผลงานผ่าน &#x27; + เว็บเผยแพร่
+  );
+  form.setCollectEmail(true);          // เก็บอีเมลผู้ส่ง
+  form.setAllowResponseEdits(true);    // ให้ครูแก้คำตอบภายหลังได้
+  form.setProgressBar(true);
+
+  // --- คำถามข้อมูลผลงาน ---
+  form.addTextItem().setTitle(&#x27;ชื่อผลงาน&#x27;).setRequired(true);
+  form.addTextItem().setTitle(&#x27;ผู้เสนอผลงาน (ชื่อ-นามสกุล)&#x27;).setRequired(true);
+  form.addTextItem().setTitle(&#x27;ตำแหน่ง&#x27;).setRequired(true);
+  form.addTextItem().setTitle(&#x27;โรงเรียน&#x27;).setRequired(true);
+  form.addTextItem().setTitle(&#x27;สังกัด&#x27;).setRequired(true);
+  form.addTextItem().setTitle(&#x27;เบอร์โทรศัพท์ที่ติดต่อได้&#x27;).setRequired(true);
+
+  // --- ช่องแนบไฟล์ (แนบผ่านระบบได้เลย) ---
+  var แนบไฟล์สำเร็จ = true;
+  try {
+    var wordUp = form.addFileUploadItem();
+    wordUp.setTitle(&#x27;แนบไฟล์รายงานฉบับ WORD (.doc / .docx)&#x27;).setRequired(true);
+    wordUp.setHelpText(&#x27;อัปโหลดไฟล์รายงาน Best Practices ฉบับ Word&#x27;);
+    try { wordUp.setNumberOfFiles(1); } catch (e0) {}
+
+    var pdfUp = form.addFileUploadItem();
+    pdfUp.setTitle(&#x27;แนบไฟล์รายงานฉบับ PDF&#x27;).setRequired(true);
+    pdfUp.setHelpText(&#x27;อัปโหลดไฟล์รายงาน Best Practices ฉบับ PDF&#x27;);
+    try { pdfUp.setNumberOfFiles(1); } catch (e1) {}
+  } catch (eFile) {
+    // บางบัญชี (เช่น Gmail ส่วนตัวบางกรณี) อาจแนบไฟล์ในฟอร์มไม่ได้ → ใช้ช่องวางลิงก์แทน
+    แนบไฟล์สำเร็จ = false;
+    form.addParagraphTextItem()
+        .setTitle(&#x27;ลิงก์ไฟล์รายงาน WORD และ PDF (Google Drive)&#x27;)
+        .setHelpText(&#x27;อัปโหลดไฟล์ขึ้น Google Drive แล้วตั้งค่าแชร์ &quot;ผู้ที่มีลิงก์&quot; จากนั้นวางลิงก์ทั้ง WORD และ PDF ที่นี่&#x27;)
+        .setRequired(true);
+  }
+
+  // ---------- 3) เชื่อมฟอร์มเข้ากับ Spreadsheet ----------
+  var ชื่อเดิม = ss.getSheets().map(function (s) { return s.getName(); });
+  form.setDestination(FormApp.DestinationType.SPREADSHEET, ss.getId());
+  SpreadsheetApp.flush();
+
+  // เปลี่ยนชื่อแผ่นคำตอบเป็น &quot;การส่งผลงาน&quot;
+  var ssRe = SpreadsheetApp.openById(ss.getId());
+  var แผ่นคำตอบ = null;
+  ssRe.getSheets().forEach(function (s) {
+    if (ชื่อเดิม.indexOf(s.getName()) === -1) แผ่นคำตอบ = s;
+  });
+  if (แผ่นคำตอบ) แผ่นคำตอบ.setName(&#x27;การส่งผลงาน&#x27;);
+
+  // ลบแผ่นเปล่า Sheet1 เดิม (ถ้ามี) ทีหลัง หลังสร้างแผ่นอื่นครบแล้ว
+  // ---------- 4) สร้างแผ่น &quot;เกณฑ์การให้คะแนน&quot; ----------
+  สร้างแผ่นเกณฑ์(ssRe);
+
+  // ---------- 5) สร้างแผ่น &quot;ให้คะแนน&quot; ----------
+  สร้างแผ่นให้คะแนน(ssRe);
+
+  // ---------- 6) สร้างแผ่น &quot;สรุปผล&quot; ----------
+  สร้างแผ่นสรุปผล(ssRe);
+
+  // ลบแผ่นค่าเริ่มต้นที่ว่าง (Sheet1 / แผ่น1)
+  var ทุกแผ่น = ssRe.getSheets();
+  if (ทุกแผ่น.length &gt; 1) {
+    ชื่อเดิม.forEach(function (nm) {
+      var sh = ssRe.getSheetByName(nm);
+      if (sh &amp;&amp; sh.getLastRow() === 0 &amp;&amp; ssRe.getSheets().length &gt; 1) {
+        try { ssRe.deleteSheet(sh); } catch (e) {}
+      }
+    });
+  }
+
+  // จัดลำดับแผ่นงาน
+  จัดลำดับแผ่น(ssRe, [&#x27;การส่งผลงาน&#x27;, &#x27;ให้คะแนน&#x27;, &#x27;สรุปผล&#x27;, &#x27;เกณฑ์การให้คะแนน&#x27;]);
+
+  // ---------- 7) แสดงผลลัพธ์ ----------
+  var สรุป =
+    &#x27;✅ สร้างระบบเสร็จแล้ว!\n\n&#x27; +
+    &#x27;📝 ลิงก์ฟอร์มให้ครูส่งผลงาน (ส่งลิงก์นี้ให้ครู):\n&#x27; + form.getPublishedUrl() + &#x27;\n\n&#x27; +
+    &#x27;🛠️ ลิงก์แก้ไขฟอร์ม:\n&#x27; + form.getEditUrl() + &#x27;\n\n&#x27; +
+    &#x27;📊 ลิงก์ Google Sheet ฐานข้อมูล + ให้คะแนน:\n&#x27; + ssRe.getUrl() + &#x27;\n\n&#x27; +
+    (แนบไฟล์สำเร็จ
+      ? &#x27;📎 ครูสามารถแนบไฟล์ WORD และ PDF ผ่านฟอร์มได้โดยตรง&#x27;
+      : &#x27;📎 หมายเหตุ: บัญชีนี้แนบไฟล์ในฟอร์มไม่ได้ ระบบจึงใช้ช่อง &quot;วางลิงก์ไฟล์&quot; แทน&#x27;);
+  Logger.log(สรุป);
+  try { SpreadsheetApp.getActive(); } catch (e) {}
+  return สรุป;
+}
+
+/* ---------------------------------- แผ่น &quot;ให้คะแนน&quot; ---------------------------------- */
+function สร้างแผ่นให้คะแนน(ss) {
+  var sh = ss.getSheetByName(&#x27;ให้คะแนน&#x27;) || ss.insertSheet(&#x27;ให้คะแนน&#x27;);
+  sh.clear();
+
+  var หัว = [
+    &#x27;ลำดับ&#x27;, &#x27;ชื่อผลงาน&#x27;, &#x27;ผู้เสนอผลงาน&#x27;, &#x27;โรงเรียน&#x27;, &#x27;กรรมการผู้ประเมิน&#x27;,
+    &#x27;1.ความเป็นมาฯ (ระดับ1-3)&#x27;,
+    &#x27;2.วัตถุประสงค์ (ระดับ1-3)&#x27;,
+    &#x27;3.1 ออกแบบแผน (ระดับ1-3)&#x27;,
+    &#x27;3.2 กระบวนการเรียนรู้ (ระดับ1-3)&#x27;,
+    &#x27;3.3 สื่อ/AI สอดคล้อง (ระดับ1-3)&#x27;,
+    &#x27;4.1 ผลบรรลุกิจกรรม (ระดับ1-3)&#x27;,
+    &#x27;4.2 ประโยชน์ที่ได้รับ (ระดับ1-3)&#x27;,
+    &#x27;5.บทเรียนที่ได้รับ (ระดับ1-3)&#x27;,
+    &#x27;6.ปัจจัยความสำเร็จ (ระดับ1-3)&#x27;,
+    &#x27;7.การเผยแพร่ (ระดับ1-3)&#x27;,
+    &#x27;8.ภาคผนวก (ระดับ1-3)&#x27;,
+    &#x27;คะแนนองค์ประกอบ (90)&#x27;,
+    &#x27;คะแนนแผนการสอน (0-10)&#x27;,
+    &#x27;คะแนนรวม (100)&#x27;,
+    &#x27;ระดับคุณภาพ&#x27;
+  ];
+  sh.getRange(1, 1, 1, หัว.length).setValues([หัว]);
+
+  var แถวสูงสุด = 200; // เตรียมสูตรไว้ 200 แถว
+  // คอลัมน์: A ลำดับ | B ชื่อผลงาน | C ผู้เสนอ | D โรงเรียน | E กรรมการ
+  //          F..P = 11 ตัวชี้วัด (ระดับ 1-3) | Q คะแนน90 | R แผน10 | S รวม100 | T ระดับ
+  for (var r = 2; r &lt;= แถวสูงสุด + 1; r++) {
+    var i = r - 1;
+    // ดึงข้อมูลผลงานจากแผ่น &quot;การส่งผลงาน&quot; อัตโนมัติ (คอลัมน์ C=ชื่อผลงาน, D=ผู้เสนอ, F=โรงเรียน)
+    sh.getRange(r, 1).setFormula(&#x27;=IF(\&#x27;การส่งผลงาน\&#x27;!C&#x27; + r + &#x27;=&quot;&quot;,&quot;&quot;,&#x27; + i + &#x27;)&#x27;);
+    sh.getRange(r, 2).setFormula(&#x27;=IF(\&#x27;การส่งผลงาน\&#x27;!C&#x27; + r + &#x27;=&quot;&quot;,&quot;&quot;,\&#x27;การส่งผลงาน\&#x27;!C&#x27; + r + &#x27;)&#x27;);
+    sh.getRange(r, 3).setFormula(&#x27;=IF(\&#x27;การส่งผลงาน\&#x27;!D&#x27; + r + &#x27;=&quot;&quot;,&quot;&quot;,\&#x27;การส่งผลงาน\&#x27;!D&#x27; + r + &#x27;)&#x27;);
+    sh.getRange(r, 4).setFormula(&#x27;=IF(\&#x27;การส่งผลงาน\&#x27;!F&#x27; + r + &#x27;=&quot;&quot;,&quot;&quot;,\&#x27;การส่งผลงาน\&#x27;!F&#x27; + r + &#x27;)&#x27;);
+    // Q = คะแนนองค์ประกอบ (90) = SUMPRODUCT(ระดับ F:P, น้ำหนัก)
+    sh.getRange(r, 17).setFormula(
+      &#x27;=IF(COUNT(F&#x27; + r + &#x27;:P&#x27; + r + &#x27;)=0,&quot;&quot;,&#x27; +
+      &#x27;F&#x27; + r + &#x27;*3+G&#x27; + r + &#x27;*1+H&#x27; + r + &#x27;*2+I&#x27; + r + &#x27;*4+J&#x27; + r + &#x27;*3+&#x27; +
+      &#x27;K&#x27; + r + &#x27;*4+L&#x27; + r + &#x27;*4+M&#x27; + r + &#x27;*3+N&#x27; + r + &#x27;*2+O&#x27; + r + &#x27;*2+P&#x27; + r + &#x27;*2)&#x27;
+    );
+    // S = รวม (100) = Q + R
+    sh.getRange(r, 19).setFormula(
+      &#x27;=IF(AND(Q&#x27; + r + &#x27;=&quot;&quot;,R&#x27; + r + &#x27;=&quot;&quot;),&quot;&quot;,N(Q&#x27; + r + &#x27;)+N(R&#x27; + r + &#x27;))&#x27;
+    );
+    // T = ระดับคุณภาพ
+    sh.getRange(r, 20).setFormula(
+      &#x27;=IF(S&#x27; + r + &#x27;=&quot;&quot;,&quot;&quot;,&#x27; +
+      &#x27;IF(S&#x27; + r + &#x27;&gt;=90,&quot;ดีเยี่ยม&quot;,&#x27; +
+      &#x27;IF(S&#x27; + r + &#x27;&gt;=80,&quot;ดีมาก&quot;,&#x27; +
+      &#x27;IF(S&#x27; + r + &#x27;&gt;=70,&quot;ดี&quot;,&#x27; +
+      &#x27;IF(S&#x27; + r + &#x27;&gt;=50,&quot;เข้าร่วม&quot;,&quot;ต่ำกว่าเกณฑ์&quot;)))))&#x27;
+    );
+  }
+
+  // Data validation: ระดับ 1-3 (F:P), แผน 0-10 (R)
+  var ruleระดับ = SpreadsheetApp.newDataValidation()
+    .requireNumberBetween(1, 3).setAllowInvalid(false)
+    .setHelpText(&#x27;กรอกระดับ 1, 2 หรือ 3 เท่านั้น (3=มีครบ 3 รายการ, 2=มี 2 รายการ, 1=มี 1 รายการ)&#x27;).build();
+  sh.getRange(2, 6, แถวสูงสุด, 11).setDataValidation(ruleระดับ);
+  var ruleแผน = SpreadsheetApp.newDataValidation()
+    .requireNumberBetween(0, 10).setAllowInvalid(false)
+    .setHelpText(&#x27;คะแนนแผนการจัดการเรียนรู้ 0-10 (ดูรายการ 10 ข้อในแผ่น &quot;เกณฑ์การให้คะแนน&quot;)&#x27;).build();
+  sh.getRange(2, 18, แถวสูงสุด, 1).setDataValidation(ruleแผน);
+
+  // จัดรูปแบบหัวตาราง
+  var head = sh.getRange(1, 1, 1, หัว.length);
+  head.setFontWeight(&#x27;bold&#x27;).setBackground(&#x27;#1a73e8&#x27;).setFontColor(&#x27;#ffffff&#x27;)
+      .setWrap(true).setVerticalAlignment(&#x27;middle&#x27;).setHorizontalAlignment(&#x27;center&#x27;);
+  sh.setFrozenRows(1);
+  sh.setFrozenColumns(2);
+  sh.getRange(1, 17, แถวสูงสุด + 1, 4).setBackground(&#x27;#e8f0fe&#x27;);
+  sh.getRange(2, 19, แถวสูงสุด, 1).setFontWeight(&#x27;bold&#x27;);
+  sh.setColumnWidths(6, 11, 90);
+  sh.setColumnWidth(2, 220);
+  sh.setColumnWidth(20, 110);
+
+  // สีตามระดับคุณภาพ
+  var rangeT = sh.getRange(2, 20, แถวสูงสุด, 1);
+  var rules = [];
+  var mk = function (txt, bg) {
+    return SpreadsheetApp.newConditionalFormatRule()
+      .whenTextEqualTo(txt).setBackground(bg).setRanges([rangeT]).build();
+  };
+  rules.push(mk(&#x27;ดีเยี่ยม&#x27;, &#x27;#b7e1cd&#x27;));
+  rules.push(mk(&#x27;ดีมาก&#x27;, &#x27;#d9ead3&#x27;));
+  rules.push(mk(&#x27;ดี&#x27;, &#x27;#fff2cc&#x27;));
+  rules.push(mk(&#x27;เข้าร่วม&#x27;, &#x27;#fce5cd&#x27;));
+  rules.push(mk(&#x27;ต่ำกว่าเกณฑ์&#x27;, &#x27;#f4cccc&#x27;));
+  sh.setConditionalFormatRules(rules);
+}
+
+/* ---------------------------------- แผ่น &quot;สรุปผล&quot; ---------------------------------- */
+function สร้างแผ่นสรุปผล(ss) {
+  var sh = ss.getSheetByName(&#x27;สรุปผล&#x27;) || ss.insertSheet(&#x27;สรุปผล&#x27;);
+  sh.clear();
+  sh.getRange(&#x27;A1&#x27;).setValue(&#x27;สรุปผลการประกวด Best Practices&#x27;).setFontSize(16).setFontWeight(&#x27;bold&#x27;);
+  sh.getRange(&#x27;A2&#x27;).setValue(หน่วยงาน).setFontColor(&#x27;#555555&#x27;);
+
+  var ข้อมูล = [
+    [&#x27;รายการ&#x27;, &#x27;จำนวน / ค่า&#x27;],
+    [&#x27;จำนวนผลงานที่ส่งเข้ามา&#x27;, &#x27;=COUNTIF(\&#x27;การส่งผลงาน\&#x27;!C2:C,&quot;&lt;&gt;&quot;)&#x27;],
+    [&#x27;จำนวนผลงานที่ตรวจแล้ว&#x27;, &#x27;=COUNT(\&#x27;ให้คะแนน\&#x27;!S2:S)&#x27;],
+    [&#x27;ระดับ ดีเยี่ยม (90 ขึ้นไป)&#x27;, &#x27;=COUNTIF(\&#x27;ให้คะแนน\&#x27;!T2:T,&quot;ดีเยี่ยม&quot;)&#x27;],
+    [&#x27;ระดับ ดีมาก (80-89.99)&#x27;, &#x27;=COUNTIF(\&#x27;ให้คะแนน\&#x27;!T2:T,&quot;ดีมาก&quot;)&#x27;],
+    [&#x27;ระดับ ดี (70-79.99)&#x27;, &#x27;=COUNTIF(\&#x27;ให้คะแนน\&#x27;!T2:T,&quot;ดี&quot;)&#x27;],
+    [&#x27;ระดับ เข้าร่วม (50-69.99)&#x27;, &#x27;=COUNTIF(\&#x27;ให้คะแนน\&#x27;!T2:T,&quot;เข้าร่วม&quot;)&#x27;],
+    [&#x27;ต่ำกว่าเกณฑ์ (ต่ำกว่า 50)&#x27;, &#x27;=COUNTIF(\&#x27;ให้คะแนน\&#x27;!T2:T,&quot;ต่ำกว่าเกณฑ์&quot;)&#x27;],
+    [&#x27;คะแนนสูงสุด&#x27;, &#x27;=IFERROR(MAX(\&#x27;ให้คะแนน\&#x27;!S2:S),&quot;-&quot;)&#x27;],
+    [&#x27;คะแนนเฉลี่ย&#x27;, &#x27;=IFERROR(ROUND(AVERAGE(\&#x27;ให้คะแนน\&#x27;!S2:S),2),&quot;-&quot;)&#x27;],
+    [&#x27;ผลงานชนะเลิศ (คะแนนสูงสุด)&#x27;,
+      &#x27;=IFERROR(INDEX(\&#x27;ให้คะแนน\&#x27;!B2:B,MATCH(MAX(\&#x27;ให้คะแนน\&#x27;!S2:S),\&#x27;ให้คะแนน\&#x27;!S2:S,0)),&quot;-&quot;)&#x27;],
+    [&#x27;ผู้เสนอผลงานชนะเลิศ&#x27;,
+      &#x27;=IFERROR(INDEX(\&#x27;ให้คะแนน\&#x27;!C2:C,MATCH(MAX(\&#x27;ให้คะแนน\&#x27;!S2:S),\&#x27;ให้คะแนน\&#x27;!S2:S,0)),&quot;-&quot;)&#x27;],
+    [&#x27;โรงเรียนชนะเลิศ&#x27;,
+      &#x27;=IFERROR(INDEX(\&#x27;ให้คะแนน\&#x27;!D2:D,MATCH(MAX(\&#x27;ให้คะแนน\&#x27;!S2:S),\&#x27;ให้คะแนน\&#x27;!S2:S,0)),&quot;-&quot;)&#x27;]
+  ];
+  sh.getRange(4, 1, ข้อมูล.length, 2).setValues(ข้อมูล);
+  sh.getRange(4, 1, 1, 2).setFontWeight(&#x27;bold&#x27;).setBackground(&#x27;#1a73e8&#x27;).setFontColor(&#x27;#ffffff&#x27;);
+  sh.getRange(4, 1, ข้อมูล.length, 2).setBorder(true, true, true, true, true, true);
+  sh.setColumnWidth(1, 300);
+  sh.setColumnWidth(2, 260);
+  sh.getRange(5, 1, ข้อมูล.length - 1, 1).setFontWeight(&#x27;normal&#x27;);
+}
+
+/* ---------------------------------- แผ่น &quot;เกณฑ์การให้คะแนน&quot; ---------------------------------- */
+function สร้างแผ่นเกณฑ์(ss) {
+  var sh = ss.getSheetByName(&#x27;เกณฑ์การให้คะแนน&#x27;) || ss.insertSheet(&#x27;เกณฑ์การให้คะแนน&#x27;);
+  sh.clear();
+  sh.getRange(&#x27;A1&#x27;).setValue(&#x27;เกณฑ์การคัดเลือกผลงาน Best Practices (รวม 100 คะแนน)&#x27;)
+    .setFontSize(14).setFontWeight(&#x27;bold&#x27;);
+
+  var ตาราง = [
+    [&#x27;องค์ประกอบ&#x27;, &#x27;น้ำหนัก(×ระดับ1-3)&#x27;, &#x27;คะแนนเต็ม&#x27;, &#x27;กรอบการพิจารณาโดยย่อ&#x27;],
+    [&#x27;1. ความเป็นมาและความสำคัญ&#x27;, 3, 9, &#x27;ที่มา/ความสำคัญของปัญหา หลักการ แนวคิด ทฤษฎี CLT เพื่อพัฒนาการสื่อสารตามกรอบ CEFR&#x27;],
+    [&#x27;2. วัตถุประสงค์และเป้าหมาย&#x27;, 1, 3, &#x27;วัตถุประสงค์สอดคล้องปัญหา + เป้าหมายเชิงปริมาณและคุณภาพ&#x27;],
+    [&#x27;3.1 การออกแบบแผนการเรียนรู้ (CLT+AI)&#x27;, 2, 6, &#x27;จุดประสงค์/ตัวชี้วัด สะท้อนความรู้ ทักษะ สมรรถนะผู้เรียน เป็นขั้นตอน&#x27;],
+    [&#x27;3.2 กระบวนการจัดการเรียนรู้ (CLT+AI)&#x27;, 4, 12, &#x27;กิจกรรมสอดคล้องจุดประสงค์ + เทคนิค CLT บูรณาการ AI + วัดผลเชิงประจักษ์หลากหลาย&#x27;],
+    [&#x27;3.3 ความสอดคล้องของสื่อ AI กับแผน&#x27;, 3, 9, &#x27;สื่อ/นวัตกรรม AI สอดคล้องมาตรฐาน ตัวชี้วัด และกระบวนการ + ประเมินความพึงพอใจ&#x27;],
+    [&#x27;4.1 ผลที่เกิดขึ้นบรรลุตามกิจกรรม&#x27;, 4, 12, &#x27;ผลสอดคล้องวัตถุประสงค์ มีหลักฐาน อ้างผลสัมฤทธิ์ O-NET ปี 2567-2568&#x27;],
+    [&#x27;4.2 ประโยชน์ที่ได้รับ&#x27;, 4, 12, &#x27;สื่อ/นวัตกรรมก่อประสบการณ์เรียนรู้ทั้งในและนอกห้องเรียน/รายบุคคล&#x27;],
+    [&#x27;5. บทเรียนที่ได้รับ (Lesson Learned)&#x27;, 3, 9, &#x27;หลักการที่ได้เรียนรู้ ข้อสรุป ข้อเสนอแนะการนำไปประยุกต์ใช้&#x27;],
+    [&#x27;6. ปัจจัยความสำเร็จ&#x27;, 2, 6, &#x27;ปัจจัย/บุคคล/หน่วยงาน + วิธีการ + ร่องรอยหลักฐานที่ช่วยให้สำเร็จ&#x27;],
+    [&#x27;7. การเผยแพร่/การยอมรับ/รางวัล&#x27;, 2, 6, &#x27;ร่องรอยการเผยแพร่ การได้รับการยอมรับ และรางวัลระดับต่างๆ&#x27;],
+    [&#x27;8. ภาคผนวก&#x27;, 2, 6, &#x27;แผนการสอนอย่างน้อย 1 ชม. + ร่องรอยหลักฐาน หนังสือราชการ เกียรติบัตร ฯลฯ&#x27;],
+    [&#x27;รวมองค์ประกอบ&#x27;, &#x27;&#x27;, 90, &#x27;&#x27;],
+    [&#x27;คะแนนแผนการจัดการเรียนรู้&#x27;, &#x27;&#x27;, 10, &#x27;ดูรายการ 10 ข้อด้านล่าง (ข้อละ 1 คะแนน)&#x27;],
+    [&#x27;รวมทั้งสิ้น&#x27;, &#x27;&#x27;, 100, &#x27;&#x27;]
+  ];
+  sh.getRange(3, 1, ตาราง.length, 4).setValues(ตาราง);
+  sh.getRange(3, 1, 1, 4).setFontWeight(&#x27;bold&#x27;).setBackground(&#x27;#1a73e8&#x27;).setFontColor(&#x27;#ffffff&#x27;);
+  sh.getRange(3, 1, ตาราง.length, 4).setBorder(true, true, true, true, true, true).setWrap(true);
+  sh.getRange(3 + ตาราง.length - 3, 1, 3, 4).setFontWeight(&#x27;bold&#x27;).setBackground(&#x27;#e8f0fe&#x27;);
+
+  var เริ่มแผน = 3 + ตาราง.length + 2;
+  sh.getRange(เริ่มแผน, 1).setValue(&#x27;เกณฑ์การให้คะแนนแผนการจัดการเรียนรู้ (10 คะแนน — มี=1, ไม่มี=0)&#x27;)
+    .setFontWeight(&#x27;bold&#x27;).setFontSize(12);
+  var แผน = [
+    [&#x27;ข้อ&#x27;, &#x27;รายการ&#x27;],
+    [&#x27;1&#x27;, &#x27;ระบุมาตรฐาน/ตัวชี้วัด&#x27;],
+    [&#x27;2&#x27;, &#x27;ระบุสาระสำคัญ/ความคิดรวบยอด&#x27;],
+    [&#x27;3&#x27;, &#x27;ระบุจุดประสงค์การเรียนรู้/ผลการเรียนรู้&#x27;],
+    [&#x27;4&#x27;, &#x27;ระบุสาระการเรียนรู้&#x27;],
+    [&#x27;5&#x27;, &#x27;ระบุกิจกรรมการเรียนรู้ CLT บูรณาการ AI ที่ส่งผลต่อทักษะการสื่อสาร&#x27;],
+    [&#x27;6&#x27;, &#x27;ระบุสื่อและแหล่งการเรียนรู้&#x27;],
+    [&#x27;7&#x27;, &#x27;ระบุวิธีการวัดและประเมินผลการเรียนรู้&#x27;],
+    [&#x27;8&#x27;, &#x27;มีบันทึกหลังสอน/ปัญหา/ข้อเสนอแนะ + ผู้บริหารรับรองแผน&#x27;],
+    [&#x27;9&#x27;, &#x27;ภาคผนวก: ร่องรอยหลักฐาน เช่น ภาพกิจกรรม ใบงาน/แบบประเมิน เกณฑ์การประเมิน&#x27;],
+    [&#x27;10&#x27;, &#x27;ภาคผนวก: คลิปวิดีโอการสอน และ infographic แผนการจัดการเรียนรู้&#x27;]
+  ];
+  sh.getRange(เริ่มแผน + 1, 1, แผน.length, 2).setValues(แผน);
+  sh.getRange(เริ่มแผน + 1, 1, 1, 2).setFontWeight(&#x27;bold&#x27;).setBackground(&#x27;#34a853&#x27;).setFontColor(&#x27;#ffffff&#x27;);
+  sh.getRange(เริ่มแผน + 1, 1, แผน.length, 2).setBorder(true, true, true, true, true, true).setWrap(true);
+
+  var เริ่มระดับ = เริ่มแผน + แผน.length + 3;
+  sh.getRange(เริ่มระดับ, 1).setValue(&#x27;เกณฑ์ระดับคุณภาพ (จากคะแนนรวม 100)&#x27;).setFontWeight(&#x27;bold&#x27;).setFontSize(12);
+  var ระดับ = [
+    [&#x27;ระดับคุณภาพ&#x27;, &#x27;ช่วงคะแนน&#x27;],
+    [&#x27;ดีเยี่ยม&#x27;, &#x27;90.00 ขึ้นไป&#x27;],
+    [&#x27;ดีมาก&#x27;, &#x27;80.00 - 89.99&#x27;],
+    [&#x27;ดี&#x27;, &#x27;70.00 - 79.99&#x27;],
+    [&#x27;เข้าร่วม&#x27;, &#x27;50.00 - 69.99&#x27;]
+  ];
+  sh.getRange(เริ่มระดับ + 1, 1, ระดับ.length, 2).setValues(ระดับ);
+  sh.getRange(เริ่มระดับ + 1, 1, 1, 2).setFontWeight(&#x27;bold&#x27;).setBackground(&#x27;#fbbc04&#x27;);
+  sh.getRange(เริ่มระดับ + 1, 1, ระดับ.length, 2).setBorder(true, true, true, true, true, true);
+
+  sh.setColumnWidth(1, 300);
+  sh.setColumnWidth(2, 150);
+  sh.setColumnWidth(3, 90);
+  sh.setColumnWidth(4, 460);
+}
+
+/* ---------------------------------- ช่วยจัดลำดับแผ่น ---------------------------------- */
+function จัดลำดับแผ่น(ss, ลำดับ) {
+  for (var i = 0; i &lt; ลำดับ.length; i++) {
+    var sh = ss.getSheetByName(ลำดับ[i]);
+    if (sh) { ss.setActiveSheet(sh); ss.moveActiveSheet(i + 1); }
+  }
+  var first = ss.getSheetByName(&#x27;การส่งผลงาน&#x27;);
+  if (first) ss.setActiveSheet(first);
+}
+</pre>
+  </div>
+
+  <div class="foot">สร้างระบบให้อัตโนมัติ · ฐานข้อมูลเป็น Google Sheet · เผยแพร่ผลงานผ่าน web.udn1.go.th</div>
+</div>
+<script>
+function copyCode(){
+  var t=document.getElementById('code').innerText;
+  navigator.clipboard.writeText(t).then(function(){
+    var b=document.querySelector('.copybtn');b.textContent='✅ คัดลอกแล้ว';
+    setTimeout(function(){b.textContent='📋 คัดลอกโค้ด';},1800);
+  });
+}
+</script>
+</body>
+</html>
